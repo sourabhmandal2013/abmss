@@ -19,7 +19,7 @@ public class SignUpDTO {
     private String userPass;
     
     @NotBlank
-    @Size(min = 10, max = 10)
+    @Size(min = 10, max = 12)
     private String userPhone;
     
 	public String getUserName() {
