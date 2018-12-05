@@ -1,0 +1,15 @@
+                                                              
+                                                              
+        M                SABM     SSA MSSABMSSAB SSABMSSABM   
+     BMSSA    ABMSSABMS  BMSS    SABM SABMSSABMS ABMSSABMSS   
+    MSSABM    MSSABMSSA  SSABM   BMSS BMSSABMSSA MSSABMSSAB   
+   SSABMSS    SAB   ABM  ABMSS  MSSAB SSA        SAB          
+   ABM  ABM   BMS ABMSS  MSSABM SABMS ABM SAB    BMS ABM      
+  BMSS  MSS   SSABMSSA   SABMSSABMSSA MSSABMSSAB SSABMSSABM   
+  SSABMSSABM  ABMSSABM   BMS ABMS ABM SABMSSABMS ABMSSABMSS   
+  ABMSSABMSS  MSS BMSSA  SSA MSSA MSS        SSA        SAB   
+  MSS    SAB  SABMSSABM  ABM  ABM SAB SSABMSSABM SABMSSABMS   
+  SAB    BMS  BMSSABMSS  MSS      BMS ABMSSABMSS BMSSABMSSA   
+  BMS    SSA  SSABMSSAB  SAB      SSA MSSABMSSAB SSABMSSABM   
+                                                              
+                                                              
