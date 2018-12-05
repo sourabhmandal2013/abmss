@@ -1769,7 +1769,7 @@ var LoginComponent = (function () {
             userName: this.userName,
             userEmail: this.email,
             userPass: this.password,
-            userMobile: this.mobile
+            userPhone: this.mobile
         };
         this.isLoading = true;
         this.loginService.registration(data).subscribe(function (success) {
