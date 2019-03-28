@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +22,7 @@ public class Institution {
 	@Column(name = "INSTITUTION_NAME")
 	private String institutionName;
 
-	@Column(name = "CITY")
-	private String city;
-
+	
 	@Column(name = "INSTITUTION_ADDRESS")
 	private String institutionAddress;
 
@@ -29,7 +30,11 @@ public class Institution {
 	private String phone;
 
 	@Column(name = "INSTITUTION_POC")
-	private Integer pointOfContact;
+	private String pointOfContact;
+	
+	@OneToOne
+	@JoinTable(name = "INSTITUTION_CITY_STATE", joinColumns = @JoinColumn(name = "institution_id"), inverseJoinColumns = @JoinColumn(name = "CITY_ID"))
+	private Cities cityState;
 
 	public Integer getInstitutionId() {
 		return institutionId;
@@ -47,12 +52,12 @@ public class Institution {
 		this.institutionName = institutionName;
 	}
 
-	public String getCity() {
-		return city;
+	public Cities getCityState() {
+		return cityState;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityState(Cities cityState) {
+		this.cityState = cityState;
 	}
 
 	public String getInstitutionAddress() {
@@ -71,12 +76,21 @@ public class Institution {
 		this.phone = phone;
 	}
 
-	public Integer getPointOfContact() {
+	public String getPointOfContact() {
 		return pointOfContact;
 	}
 
-	public void setPointOfContact(Integer pointOfContact) {
+	public void setPointOfContact(String pointOfContact) {
 		this.pointOfContact = pointOfContact;
 	}
+
+	@Override
+	public String toString() {
+		return "Institution [institutionId=" + institutionId + ", institutionName=" + institutionName
+				+ ", institutionAddress=" + institutionAddress + ", phone=" + phone + ", pointOfContact="
+				+ pointOfContact + ", cityState=" + cityState + "]";
+	}
+	
+	
 
 }

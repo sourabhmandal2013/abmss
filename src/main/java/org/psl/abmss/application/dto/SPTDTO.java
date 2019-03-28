@@ -1,14 +1,12 @@
 package org.psl.abmss.application.dto;
 
-import java.util.Date;
-
 public class SPTDTO {
 	
 	private Integer speechTherapyId;
 	private Integer patientId;
 	private Integer addedBy;
-	private Date trtmtStartDt;
-	private Date trtmtBookedDt;
+	private String trtmtStartDt;
+	private String trtmtBookedDt;
 	private String treatingPerson;
 	private boolean complete;
 	
@@ -30,16 +28,16 @@ public class SPTDTO {
 	public void setAddedBy(Integer addedBy) {
 		this.addedBy = addedBy;
 	}
-	public Date getTrtmtStartDt() {
+	public String getTrtmtStartDt() {
 		return trtmtStartDt;
 	}
-	public void setTrtmtStartDt(Date trtmtStartDt) {
+	public void setTrtmtStartDt(String trtmtStartDt) {
 		this.trtmtStartDt = trtmtStartDt;
 	}
-	public Date getTrtmtBookedDt() {
+	public String getTrtmtBookedDt() {
 		return trtmtBookedDt;
 	}
-	public void setTrtmtBookedDt(Date trtmtBookedDt) {
+	public void setTrtmtBookedDt(String trtmtBookedDt) {
 		this.trtmtBookedDt = trtmtBookedDt;
 	}
 	public String getTreatingPerson() {

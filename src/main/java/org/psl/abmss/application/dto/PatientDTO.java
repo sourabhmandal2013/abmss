@@ -1,18 +1,13 @@
 package org.psl.abmss.application.dto;
 
-import java.util.List;
+import org.psl.abmss.application.entity.Cities;
 
 public class PatientDTO {
 	
-//	private Integer childId;
 	private String institutionsFileNo;
-	private String childFirstName;
-	private String childLastName;
+	private String childName;
 	private String childDob;
 	private Integer childBelongsToInstitution;
-//	private UserDTO enteredBy;
-//	private InstitutionDTO center;
-	private Integer serviceType;
 	private Integer patientId;
 	private Integer userId;
 	private String fileNo;
@@ -22,13 +17,11 @@ public class PatientDTO {
 	private String primary_contact_no;
 	private String email_id;
 	private String address;
-	private String city;
-	private String province;
-	private String zip;
+	private Cities cityState;
 	private String alt_con_no_1;
 	private String alt_con_no_2;
-	private Integer enteredByUserId;
-	private List<Integer> centerId;
+	private String enteredByUserId;
+//	private List<Integer> centerId;
 	
 	/*
 	public Integer getChildId() {
@@ -43,17 +36,11 @@ public class PatientDTO {
 	public void setInstitutionsFileNo(String institutionsFileNo) {
 		this.institutionsFileNo = institutionsFileNo;
 	}
-	public String getChildFirstName() {
-		return childFirstName;
+	public String getChildName() {
+		return childName;
 	}
-	public void setChildFirstName(String childFirstName) {
-		this.childFirstName = childFirstName;
-	}
-	public String getChildLastName() {
-		return childLastName;
-	}
-	public void setChildLastName(String childLastName) {
-		this.childLastName = childLastName;
+	public void setChildName(String childName) {
+		this.childName = childName;
 	}
 	public String getChildDob() {
 		return childDob;
@@ -66,12 +53,6 @@ public class PatientDTO {
 	}
 	public void setChildBelongsToInstitution(int childBelongsToInstitution) {
 		this.childBelongsToInstitution = childBelongsToInstitution;
-	}
-	public int getServiceType() {
-		return serviceType;
-	}
-	public void setServiceType(Integer serviceType) {
-		this.serviceType = serviceType;
 	}
 	public Integer getPatientId() {
 		return patientId;
@@ -121,23 +102,11 @@ public class PatientDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCity() {
-		return city;
+	public Cities getCityState() {
+		return cityState;
 	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getProvince() {
-		return province;
-	}
-	public void setProvince(String province) {
-		this.province = province;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
+	public void setCityState(Cities cityState) {
+		this.cityState = cityState;
 	}
 	public String getAlt_con_no_1() {
 		return alt_con_no_1;
@@ -179,17 +148,27 @@ public class PatientDTO {
 	public UserDTO getEnteredBy() {
 		return enteredBy;
 	}*/
-	public Integer getEnteredByUserId() {
+	public String getEnteredByUserId() {
 		return enteredByUserId;
 	}
-	public void setEnteredByUserId(Integer enteredByUserId) {
+	public void setEnteredByUserId(String enteredByUserId) {
 		this.enteredByUserId = enteredByUserId;
 	}
-	public List<Integer> getCenterId() {
-		return centerId;
+//	public List<Integer> getCenterId() {
+//		return centerId;
+//	}
+//	public void setCenterId(List<Integer> centerId) {
+//		this.centerId = centerId;
+//	}
+	@Override
+	public String toString() {
+		return "PatientDTO [institutionsFileNo=" + institutionsFileNo + ", childName=" + childName + ", childDob="
+				+ childDob + ", childBelongsToInstitution=" + childBelongsToInstitution + " , patientId=" + patientId + ", userId=" + userId + ", fileNo=" + fileNo + ", patientGuardianName="
+				+ patientGuardianName + ", gender=" + gender + ", age=" + age + ", primary_contact_no="
+				+ primary_contact_no + ", email_id=" + email_id + ", address=" + address + ", cityState=" + cityState
+				+ ", alt_con_no_1=" + alt_con_no_1 + ", alt_con_no_2=" + alt_con_no_2 + ", enteredByUserId="
+				+ enteredByUserId + "]";
 	}
-	public void setCenterId(List<Integer> centerId) {
-		this.centerId = centerId;
-	}
+	
 	
 }

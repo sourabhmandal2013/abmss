@@ -8,9 +8,8 @@ public class TreatmentHistoryDTO {
 	private Integer patientId;
 	private String fileNo;
 	private String gender;
-	private String firstName;
-	private String lastName;
-	private Date dob;
+	private String childName;
+	private String dob;
 	/*List<InterventionDTO> singleIntervention = new ArrayList<InterventionDTO>();
 	List<InterventionDTO> doubleIntervention = new ArrayList<InterventionDTO>();
 	List<TransportationDTO> transport = new ArrayList<TransportationDTO>();
@@ -41,22 +40,16 @@ public class TreatmentHistoryDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getchildName() {
+		return childName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setchildName(String childName) {
+		this.childName = childName;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 	/*public List<InterventionDTO> getSingleIntervention() {

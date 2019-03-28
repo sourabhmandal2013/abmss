@@ -26,10 +26,10 @@ public class Doctor {
 	private String docName;
 
 	@Column(name = "DOCTOR_PHONE_1")
-	private Integer docPhone1;
+	private String docPhone1;
 
 	@Column(name = "DOCTOR_PHONE_2")
-	private Integer docPhone2;
+	private String docPhone2;
 
 	@Column(name = "DOCTOR_CENTER")
 	private Integer docCenter;
@@ -62,19 +62,19 @@ public class Doctor {
 		this.docName = docName;
 	}
 
-	public Integer getDocPhone1() {
+	public String getDocPhone1() {
 		return docPhone1;
 	}
 
-	public void setDocPhone1(Integer docPhone1) {
+	public void setDocPhone1(String docPhone1) {
 		this.docPhone1 = docPhone1;
 	}
 
-	public Integer getDocPhone2() {
+	public String getDocPhone2() {
 		return docPhone2;
 	}
 
-	public void setDocPhone2(Integer docPhone2) {
+	public void setDocPhone2(String docPhone2) {
 		this.docPhone2 = docPhone2;
 	}
 

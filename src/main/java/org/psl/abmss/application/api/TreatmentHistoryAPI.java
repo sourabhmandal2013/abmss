@@ -1,6 +1,7 @@
 package org.psl.abmss.application.api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.psl.abmss.application.dto.ENTDTO;
 import org.psl.abmss.application.dto.InterventionDTO;
@@ -52,6 +53,13 @@ public class TreatmentHistoryAPI {
     {
 		return historyService.getTreatmentHistoryByPatientId(id);
     }
+	
+	@RequestMapping(value = "/stats/{patientId}", method = {RequestMethod.GET})
+    public Map<String, Integer> getTreatmentStatsForPatientId(@PathVariable(value = "patientId") final Integer id)
+    {
+		return historyService.getTreatmentStatsByPatientId(id);
+    }
+	
 	
 	@RequestMapping(value = "/single/{patientId}", method = {RequestMethod.GET})
     public List<Intervention> getAllSingleInterventionTreatmentHistory(
@@ -235,6 +243,7 @@ public class TreatmentHistoryAPI {
     		@RequestBody TreatmentHistoryDTO treatmentHistoryDTO)
     {
 		TreatmentHistory treatmentHistory = historyConverter.dtoToTreatmentHistory(treatmentHistoryDTO);
+		
 		return historyService.updateTreatmentHistory(treatmentHistory);
     }
 	

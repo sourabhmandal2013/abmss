@@ -47,7 +47,7 @@ public class ScheduledServices {
 			Map<String, String> replacements = new HashMap<String, String>();
 			replacements.put("guardian", patient.getPatientGuardianName());
 			replacements.put("today", String.valueOf(new Date()));
-			replacements.put("childName", patient.getChildFirstName()+ " " + patient.getChildLastName());
+			replacements.put("childName", patient.getChildName());
 			String message = template.getTemplate(replacements);
 			
 			e = new Email();
@@ -67,7 +67,7 @@ public class ScheduledServices {
 			Map<String, String> replacements = new HashMap<String, String>();
 			replacements.put("guardian", patient.getPatientGuardianName());
 			replacements.put("today", todayPlusSeven.toString());
-			replacements.put("childName", patient.getChildFirstName()+ " " + patient.getChildLastName());
+			replacements.put("childName", patient.getChildName());
 			String message = template.getTemplate(replacements);
 			
 			e = new Email();

@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TreatmentHistoryRepository extends CrudRepository<TreatmentHistory, Integer> {
+	
+	TreatmentHistory findByPatientId(Integer patientId);
 
 }

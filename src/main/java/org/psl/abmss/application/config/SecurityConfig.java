@@ -84,14 +84,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/abmss/doctor/add")
 				.hasAnyAuthority("ROLE_ADMIN","ROLE_CENTER_HEAD")
 			.antMatchers("/abmss/treatment/add")
-				.hasAnyAuthority("ROLE_DOCTOR","ROLE_PROJECT_ANIMATOR")
-			.antMatchers("/abmss/transportation/add")
-				.hasAnyAuthority("ROLE_PROJECT_ANIMATOR")
-			.antMatchers("/abmss/transportation/add")
-				.hasAnyAuthority("ROLE_PROJECT_ANIMATOR")
+				.hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PROJECT_ANIMATOR") //HAD ADDED ADMIN, REMOVE AFTER USE
+			.antMatchers("/abmss/transportation/add")								
+				.hasAnyAuthority("ROLE_ADMIN","ROLE_PROJECT_ANIMATOR")							//HAD ADDED ADMIN, REMOVE AFTER USE
+			.antMatchers("/abmss/sendsms")
+				.hasAnyAuthority("ROLE_ADMIN","ROLE_PROJECT_ANIMATOR")
+			.antMatchers("/abmss/sendemail")
+				.hasAnyAuthority("ROLE_ADMIN","ROLE_PROJECT_ANIMATOR")
 			.antMatchers("/","/login","/registration","/getRoles","/recover/*")
     			.permitAll()
-    		.antMatchers("/abmss/**")
+    		.antMatchers("/abmss**")
     			.authenticated();
     http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

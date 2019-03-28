@@ -1,6 +1,7 @@
 package org.psl.abmss.application.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.psl.abmss.application.entity.ENT;
 import org.psl.abmss.application.entity.Intervention;
@@ -13,6 +14,13 @@ public interface TreatmentHistoryService {
 	 * ALL BY PID
 	 */
 	public TreatmentHistory getTreatmentHistoryByPatientId(Integer patientId);
+	
+	/*
+	 * 
+	 * GET STATS BY PATIENT ID
+	 * 
+	 */
+	public Map<String,Integer> getTreatmentStatsByPatientId(Integer patientId);
 
 	/*
 	 * TYPES BY PID

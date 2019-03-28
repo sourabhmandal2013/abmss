@@ -31,7 +31,7 @@ public class Transportation {
 	private Date transToHomeDt;
 
 	@Column(name = "DISTANCE")
-	private Double distance;
+	private String distance;
 
 	public int getTrans_id() {
 		return transId;
@@ -73,11 +73,11 @@ public class Transportation {
 		this.transToHomeDt = trans_to_home_dt;
 	}
 
-	public Double getDistance() {
+	public String getDistance() {
 		return distance;
 	}
 
-	public void setDistance(Double distance) {
+	public void setDistance(String distance) {
 		this.distance = distance;
 	}
 }

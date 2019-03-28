@@ -28,4 +28,6 @@ public interface UserService {
 	
 	public boolean deleteUser(Integer id);
 
+	public Long getUserCount();
+
 }

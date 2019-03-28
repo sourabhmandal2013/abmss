@@ -125,6 +125,16 @@ public class PatientServiceImpl implements PatientService {
 			System.err.println(e.getMessage());
 		}
 		return null;
+	}
+
+	@Override
+	public Long getPatientCount() {
+		try {
+			return patientRepository.count();
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return null;
 	} 
 	
 	

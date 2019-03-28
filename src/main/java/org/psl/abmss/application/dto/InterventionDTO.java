@@ -1,18 +1,15 @@
 package org.psl.abmss.application.dto;
 
-import java.util.Date;
-import java.util.Set;
-
 public class InterventionDTO {
 	private Integer patientId;
 	private Integer intrvId;
 	private Integer intrvType;
-	private Integer enteredBy;
-	private Date admisionDt;
-	private Date intvDt;
-	private Date dischrgDt;
-	private Integer patientHt;
-	private Integer patientWght;
+	private String enteredBy;
+	private String admisionDt;
+	private String intvDt;
+	private String dischrgDt;
+	private String patientHt;
+	private String patientWght;
 	private String anasthNm;
 	private String anasthMethod;
 	private String operationType;
@@ -21,7 +18,8 @@ public class InterventionDTO {
 	private Integer intvBookStatus;
 	private Integer srvcId;
 //	private Set<DoctorDTO> doctorDTOList;
-	private Set<Integer> doctorId;
+//	private Set<Integer> doctorId;
+	private Integer doctorId;
 	
 	/*
 	public Set<DoctorDTO> getDoctorDTOList() {
@@ -42,40 +40,40 @@ public class InterventionDTO {
 	public void setIntrvId(Integer intrvId) {
 		this.intrvId = intrvId;
 	}
-	public Integer getEnteredBy() {
+	public String getEnteredBy() {
 		return enteredBy;
 	}
-	public void setEnteredBy(Integer enteredBy) {
+	public void setEnteredBy(String enteredBy) {
 		this.enteredBy = enteredBy;
 	}
-	public Date getAdmisionDt() {
+	public String getAdmisionDt() {
 		return admisionDt;
 	}
-	public void setAdmisionDt(Date admisionDt) {
+	public void setAdmisionDt(String admisionDt) {
 		this.admisionDt = admisionDt;
 	}
-	public Date getIntvDt() {
+	public String getIntvDt() {
 		return intvDt;
 	}
-	public void setIntvDt(Date intvDt) {
+	public void setIntvDt(String intvDt) {
 		this.intvDt = intvDt;
 	}
-	public Date getDischrgDt() {
+	public String getDischrgDt() {
 		return dischrgDt;
 	}
-	public void setDischrgDt(Date dischrgDt) {
+	public void setDischrgDt(String dischrgDt) {
 		this.dischrgDt = dischrgDt;
 	}
-	public Integer getPatientHt() {
+	public String getPatientHt() {
 		return patientHt;
 	}
-	public void setPatientHt(Integer patientHt) {
+	public void setPatientHt(String patientHt) {
 		this.patientHt = patientHt;
 	}
-	public Integer getPatientWght() {
+	public String getPatientWght() {
 		return patientWght;
 	}
-	public void setPatientWght(Integer patientWght) {
+	public void setPatientWght(String patientWght) {
 		this.patientWght = patientWght;
 	}
 	public String getAnasthNm() {
@@ -126,10 +124,10 @@ public class InterventionDTO {
 	public void setIntrvType(Integer intrvType) {
 		this.intrvType = intrvType;
 	}
-	public Set<Integer> getDoctorId() {
+	public Integer getDoctorId() {
 		return doctorId;
 	}
-	public void setDoctorId(Set<Integer> doctorId) {
+	public void setDoctorId(Integer doctorId) {
 		this.doctorId = doctorId;
 	}
 	

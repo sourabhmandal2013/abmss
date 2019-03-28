@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRepository extends CrudRepository<Patient, Integer> {
 
-	List<Patient> findAllByChildFirstName(String name);
-	
-	List<Patient> findAllByChildLastName(String name);
+	List<Patient> findAllByChildName(String name);
 	
 }

@@ -109,5 +109,17 @@ public class DoctorServiceImpl implements DoctorService{
 		return null;
 	}
 
+	@Override
+	public Long getDoctorCount() {
+		try {
+			
+			Long count = doctorRepository.count();
+			return count;
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return null;
+	}
+
 	
 }

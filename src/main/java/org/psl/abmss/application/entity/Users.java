@@ -46,7 +46,7 @@ public class Users {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	private Set<Role> roles;
-
+	
 	public Integer getUserId() {
 		return userId;
 	}
@@ -140,4 +140,10 @@ public class Users {
 		this.userPhone = userPhone;
 	}
 
+	@Override
+	public String toString() {
+		return "Users [userId=" + userId + ", logonId=" + logonId + ", userName=" + userName + ", userPass=" + userPass
+				+ ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", active=" + active + ", roles=" + roles
+				+ "]";
+	}
 }

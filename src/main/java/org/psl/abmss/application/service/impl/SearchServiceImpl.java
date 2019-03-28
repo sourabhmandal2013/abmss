@@ -104,8 +104,7 @@ public class SearchServiceImpl implements SearchService {
 	}	
 	private List<Patient> searchPatientString(String searchString) {
 		List<Patient> result = new ArrayList<Patient>();
-		patientRepository.findAllByChildFirstName(searchString).forEach(result :: add);
-		patientRepository.findAllByChildLastName(searchString).forEach(result :: add);
+		patientRepository.findAllByChildName(searchString).forEach(result :: add);
 		return result;
 	}
 	private List<Institution> searchCenterString(String searchString) {

@@ -24,6 +24,11 @@ public class PatientsAPI {
 	@Autowired
 	private PatientConverter converterPatient;
 	
+	@RequestMapping(value = "/total/count", method = {RequestMethod.GET})
+    public Long countPatients()
+    {
+		return patientService.getPatientCount();
+    }
 	
 	@RequestMapping(value = "/{childId}", method = {RequestMethod.GET})
     public Patient getChild(@PathVariable(value = "childId") final Integer id)
@@ -58,6 +63,9 @@ public class PatientsAPI {
     public boolean addChild(
     		@RequestBody PatientDTO patientDTO)
     {
+		
+//		System.err.println(patientDTO.toString());
+		
 		Patient patient = converterPatient.dtoToPatient(patientDTO);
 		return patientService.addPatient(patient);
     }

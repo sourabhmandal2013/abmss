@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.psl.abmss.application.dto.AddUserDTO;
-import org.psl.abmss.application.dto.SignUpDTO;
 import org.psl.abmss.application.entity.Role;
 import org.psl.abmss.application.entity.Users;
 import org.psl.abmss.application.repositories.RoleRepository;
@@ -48,7 +47,11 @@ public class UserAPI {
 	@Autowired
     PatientService patientService;
 	
-	
+	@RequestMapping(value = "/total/count", method = {RequestMethod.GET})
+    public Long countUsers()
+    {
+		return userService.getUserCount();
+    }
 	
 	@RequestMapping(value = "/{userId}", method = {RequestMethod.GET})
     public Users getUserById(@PathVariable(value = "userId") final Integer id)

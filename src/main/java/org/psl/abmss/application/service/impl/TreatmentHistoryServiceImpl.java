@@ -1,17 +1,21 @@
 package org.psl.abmss.application.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.psl.abmss.application.entity.ENT;
 import org.psl.abmss.application.entity.Intervention;
 import org.psl.abmss.application.entity.Orthodontic;
 import org.psl.abmss.application.entity.SpeechTherapy;
+import org.psl.abmss.application.entity.Transportation;
 import org.psl.abmss.application.entity.TreatmentHistory;
 import org.psl.abmss.application.repositories.ENTRepository;
 import org.psl.abmss.application.repositories.InterventionRepository;
 import org.psl.abmss.application.repositories.ORTRepository;
 import org.psl.abmss.application.repositories.SPTRepository;
+import org.psl.abmss.application.repositories.TransportationRepository;
 import org.psl.abmss.application.repositories.TreatmentHistoryRepository;
 import org.psl.abmss.application.service.TreatmentHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +39,19 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 	@Autowired
 	SPTRepository sptRepository;
 	
+	@Autowired
+	TransportationRepository transRepository;
+	
+	
 	@Override
 	public TreatmentHistory getTreatmentHistoryByPatientId(Integer patientId) {
 		try {
-			treatmentHistoryRepository.findById(patientId);
+			TreatmentHistory t = treatmentHistoryRepository.findByPatientId(patientId);
+			return t;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return null;
+		return new TreatmentHistory();
 	}
 
 	@Override
@@ -119,6 +128,7 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 	public TreatmentHistory updateTreatmentHistory(TreatmentHistory treatmentHistory) {
 		try {
 			treatmentHistoryRepository.save(treatmentHistory);
+			
 			return treatmentHistoryRepository.findById(treatmentHistory.getPatientId()).get();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -154,6 +164,7 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 		try {
 			
 			intervention = interventionRepository.save(intervention);
+			updateTreatmentOnUpdateOfService(intervention.getPatientId(), intervention.getIntrvType());
 			
 			return intervention.getIntrvId();
 		} catch (Exception e) {
@@ -166,6 +177,7 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 	public Integer addEnt(ENT ent) {
 		try {
 			ent = entRepository.save(ent);
+			updateTreatmentOnUpdateOfService(ent.getPatientId(), 3);
 			return ent.getEntId();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -177,6 +189,7 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 	public Integer addSPT(SpeechTherapy speechTherapy) {
 		try {
 			speechTherapy = sptRepository.save(speechTherapy);
+			updateTreatmentOnUpdateOfService(speechTherapy.getPatientId(), 4);
 			return speechTherapy.getSpeechTherapyId();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -188,6 +201,7 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 	public Integer addORT(Orthodontic orthodontic) {
 		try {
 			orthodontic = ortRepository.save(orthodontic);
+			updateTreatmentOnUpdateOfService(orthodontic.getPatientId(), 5);
 			return orthodontic.getOrthodonticTrtmntId();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -283,5 +297,83 @@ public class TreatmentHistoryServiceImpl implements TreatmentHistoryService {
 		return false;
 	}
 
+	@Override
+	public Map<String, Integer> getTreatmentStatsByPatientId(Integer patientId) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		try {
+			
+			TreatmentHistory t = treatmentHistoryRepository.findByPatientId(patientId);
+			
+			map.put("SI", 0);
+			map.put("DI", 0);
+			map.put("ENT", 0);
+			map.put("SPT", 0);
+			map.put("ORT", 0);
+			map.put("TRANS", 0);
+			//System.out.println(map);
+			if(t!=null) {
+				map.put("SI", t.getSingleIntervention()!=null?t.getSingleIntervention().size():0);
+				map.put("DI", t.getDoubleIntervention()!=null?t.getDoubleIntervention().size():0);
+				map.put("ENT", t.getEnt()!=null?t.getEnt().size():0);
+				map.put("SPT", t.getSpeechTherapy()!=null?t.getSpeechTherapy().size():0);
+				map.put("ORT", t.getOrthodonticTherapy()!=null?t.getOrthodonticTherapy().size():0);
+				map.put("TRANS", t.getTransport()!=null?t.getTransport().size():0);
+			}
+			//System.out.println("After If : "+map);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return map;
+	}
+
+	private boolean updateTreatmentOnUpdateOfService(Integer patientId, Integer serviceType) {
+		try {
+
+			TreatmentHistory t =  treatmentHistoryRepository.findByPatientId(patientId);
+			List <Intervention> interv;
+			List <ENT> ent;
+			List <SpeechTherapy> spt;
+			List <Orthodontic> ort;
+			List <Transportation> trans;
+			
+			
+			if(serviceType == 1) {
+				interv = new ArrayList<Intervention>();
+				interventionRepository.findAllByPatientIdAndIntrvType(patientId, serviceType).forEach(interv :: add);
+				t.setSingleIntervention(interv);
+			}
+			else if(serviceType == 2) {
+				interv = new ArrayList<Intervention>();
+				interventionRepository.findAllByPatientIdAndIntrvType(patientId, serviceType).forEach(interv :: add);
+				t.setDoubleIntervention(interv);
+			}
+			else if(serviceType == 3) {
+				ent = new ArrayList<ENT>();
+				entRepository.findAllByPatientId(patientId).forEach(ent :: add);
+				t.setEnt(ent);
+			}
+			else if(serviceType == 4) {
+				spt = new ArrayList<SpeechTherapy>();
+				sptRepository.findAllByPatientId(patientId).forEach(spt :: add);
+				t.setSpeechTherapy(spt);
+			}
+			else if(serviceType == 5) {
+				ort = new ArrayList<Orthodontic>();
+				ortRepository.findAllByPatientId(patientId).forEach(ort :: add);
+				t.setOrthodonticTherapy(ort);
+			}
+			else if(serviceType == 6) {
+				trans = new ArrayList<Transportation>();
+				transRepository.findAllByPatientId(patientId).forEach(trans :: add);
+				t.setTransport(trans);
+			}
+			treatmentHistoryRepository.save(t);
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
 	
 }

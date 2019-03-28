@@ -19,6 +19,8 @@ public interface PatientService {
 	public List<Patient> getPatientsForToday();
 	
 	public List<Patient> getPatientsForAfterSevenDays();
+
+	public Long getPatientCount();
 	
 	
 }

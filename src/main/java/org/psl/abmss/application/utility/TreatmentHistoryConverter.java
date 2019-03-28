@@ -1,5 +1,7 @@
 package org.psl.abmss.application.utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,11 +52,14 @@ public TreatmentHistory dtoToTreatmentHistory(TreatmentHistoryDTO dto) {
 		
 		TreatmentHistory treatmentHistory = new TreatmentHistory();
 		
-		treatmentHistory.setDob(dto.getDob());
+		try {
+			treatmentHistory.setDob(new SimpleDateFormat("dd-MM-yyyy").parse(dto.getDob()));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		treatmentHistory.setFileNo(dto.getFileNo());
-		treatmentHistory.setFirstName(dto.getFirstName());
+		treatmentHistory.setchildName(dto.getchildName());
 		treatmentHistory.setGender(dto.getGender());
-		treatmentHistory.setLastName(dto.getLastName());
 		treatmentHistory.setPatientId(dto.getPatientId());
 		
 		/*List<InterventionDTO> singleInterventionDTO = dto.getDoubleIntervention();

@@ -11,13 +11,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TREATMENTHISTORY")
 public class TreatmentHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "PATIENT_ID")
+	@Column(name = "TREATMENT_HISTORY_ID")
+	private Integer treatmentId;
+	
+	@Column(name = "PATIENT_ID", unique = true)
+	@NotNull
 	private Integer patientId;
 
 	@Column(name = "FILE_NO")
@@ -26,11 +31,8 @@ public class TreatmentHistory {
 	@Column(name = "GENDER")
 	private String gender;
 
-	@Column(name = "FIRST_NAME")
-	private String firstName;
-
-	@Column(name = "LAST_NAME")
-	private String lastName;
+	@Column(name = "CHILD_NAME")
+	private String childName;
 
 	@Column(name = "DOB")
 	private Date dob;
@@ -67,17 +69,11 @@ public class TreatmentHistory {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getchildName() {
+		return childName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setchildName(String childName) {
+		this.childName = childName;
 	}
 	public Date getDob() {
 		return dob;
@@ -120,5 +116,11 @@ public class TreatmentHistory {
 	}
 	public void setOrthodonticTherapy(List<Orthodontic> orthodonticTherapy) {
 		this.orthodonticTherapy = orthodonticTherapy;
+	}
+	public Integer getTreatmentId() {
+		return treatmentId;
+	}
+	public void setTreatmentId(Integer treatmentId) {
+		this.treatmentId = treatmentId;
 	}
 }

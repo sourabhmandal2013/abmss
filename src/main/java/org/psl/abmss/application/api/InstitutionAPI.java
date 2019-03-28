@@ -22,17 +22,33 @@ public class InstitutionAPI {
 	@Autowired
 	private InstitutionConverter converterInstitution;
 	
+	
+	@RequestMapping(value = "/total/count", method = {RequestMethod.GET})
+    public Long countInstitutions()
+    {
+		return institutionService.getInstitutionCount();
+    }
+	
 	@RequestMapping(value = "/{institutionId}", method = {RequestMethod.GET})
     public Institution getInstitutionByInstitutionId(@PathVariable(value = "institutionId") final Integer id)
     {
 		return institutionService.getInstitutionByInstitutionId(id);
     }
 	
-	@RequestMapping(value = "/{city}", method = {RequestMethod.GET})
+	
+	@RequestMapping(value = "/city/{city}", method = {RequestMethod.GET})
     public List<Institution> getInstitutionByCity(@PathVariable(value = "city") final String city)
     {
 		return institutionService.getinstitutionByCity(city);
     }
+	
+	@RequestMapping(value = "/state/{state}", method = {RequestMethod.GET})
+    public List<Institution> getInstitutionByState(@PathVariable(value = "state") final String state)
+    {
+		return institutionService.getinstitutionByState(state);
+    }
+	
+	
 	
 	@RequestMapping(value = "/all", method = {RequestMethod.GET})
     public List<Institution> getAllTransportation()

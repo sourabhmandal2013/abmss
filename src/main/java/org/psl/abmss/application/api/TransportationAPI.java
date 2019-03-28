@@ -25,8 +25,8 @@ public class TransportationAPI {
 	@Autowired
 	private TransportationConverter converterTransportation;
 	
-	@RequestMapping(value = "/{childId}", method = {RequestMethod.GET})
-    public Transportation getChildTransportationByChildId(@PathVariable(value = "childId") final Integer id)
+	@RequestMapping(value = "/patient/{childId}", method = {RequestMethod.GET})
+    public List<Transportation> getChildTransportationByChildId(@PathVariable(value = "childId") final Integer id)
     {
 		return transportationService.getTransportationByChildId(id);
     }

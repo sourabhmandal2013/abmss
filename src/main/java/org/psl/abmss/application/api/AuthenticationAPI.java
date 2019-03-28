@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.psl.abmss.application.dto.LoginDTO;
+import org.psl.abmss.application.dto.ResetPasswordDTO;
 import org.psl.abmss.application.dto.SignUpDTO;
 import org.psl.abmss.application.entity.Role;
 import org.psl.abmss.application.entity.Users;
@@ -55,6 +54,9 @@ public class AuthenticationAPI {
     JwtTokenProvider tokenProvider;
     
     @Autowired
+    PasswordEncoder encoder;
+    
+    @Autowired
     SmsService smsService;
     
     /*@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
@@ -73,10 +75,12 @@ public class AuthenticationAPI {
 		return modelAndView;
 	}
     */
+    
+    //Login
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginDTO loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
+		Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getLogonId(),
                         loginRequest.getPassword()
@@ -89,8 +93,9 @@ public class AuthenticationAPI {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
+	//GET ROLE
 	@RequestMapping(value="/getRoles", method = RequestMethod.GET)
-	public List<Role> registration(){
+	public List<Role> getRoles(){
 		
 		List<Role> roles = new ArrayList<Role>();
 		try {
@@ -101,34 +106,33 @@ public class AuthenticationAPI {
 		return roles;
 	}
     
+	//REGISTER USER
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/registration", method = RequestMethod.POST)
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpDTO signUpRequest) {
-        if(userRepository.existsByUserEmail(signUpRequest.getUserEmail())) {
+	public ResponseEntity<?> registerUser(@RequestBody SignUpDTO signUpRequest) {
+		
+		if(userRepository.existsByUserEmail(signUpRequest.getUserEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
-        if(userRepository.existsByUserPhone(Long.valueOf(signUpRequest.getUserPhone()))) {
+        else if(userRepository.existsByUserPhone(Long.valueOf(signUpRequest.getUserPhone()))) {
             return new ResponseEntity(new ApiResponse(false, "Mobile Number is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
-		
-
-        /*Set<Role> userRole = new HashSet<Role();
-        userRole.setRole("ROLE_ADMIN");
-        userRole.setId(1);
-        */
         Set<Role> userRole = new HashSet<Role>();
-        Role adminRole = new Role();
-        adminRole.setRole("ROLE_ADMIN");
-        adminRole.setId(1);
-        userRole.add(adminRole);
+        Role role = new Role();
+        role.setRole("ROLE_USER");
+        role.setId(5);
+        userRole.add(role);
         
         /*Users user = new Users(signUpRequest.getUserName(), passwordEncoder.encode(signUpRequest.getUserPass()),
                 signUpRequest.getUserEmail(), Collections.singleton(userRole));*/
         
         String logonId = "ABMSSUSER" + (int)(Math.random()*9999);
-		
+        while(userRepository.findByLogonId(logonId).isPresent()) {
+        	logonId = new String("ABMSSUSER" + (int)(Math.random()*9999));
+//        	logonId = "ABMSSUSER" + (int)(Math.random()*9999);
+        }
         Users user = new Users(signUpRequest.getUserName(), passwordEncoder.encode(signUpRequest.getUserPass()),
         		logonId, Long.valueOf(signUpRequest.getUserPhone()), signUpRequest.getUserEmail(), userRole);
         
@@ -146,14 +150,47 @@ public class AuthenticationAPI {
     
 	}
 	
-	@RequestMapping(value="/recover/userid")
+	//Recover UserID
+	@RequestMapping(value="/recover/logonId")
 	public ResponseEntity<Object> recoverUserId(@RequestParam("mobile") String mobileNumber) {
 		Optional<Users> user = userRepository.findByUserPhone(Long.valueOf(mobileNumber));
 		
 		if(user.isPresent()) {
 			final String logonIdMessage = "ABMSS : User id :" + user.get().getLogonId();
 			smsService.sendSmsWithCustomMessage(Arrays.asList(mobileNumber.trim()), logonIdMessage);
-			return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+			return  new ResponseEntity<>(HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	//Reset Password
+	@RequestMapping(value="recover/password", method = RequestMethod.POST)
+	public ResponseEntity<Object> recoverPassword(
+			@RequestBody ResetPasswordDTO reset
+			) {
+/*		Optional<Users> userByLogonId = userRepository.findByLogonId(reset.getLogonId());
+		Optional<Users> userByPhone = userRepository.findByUserPhone(Long.valueOf(reset.getMobileNumber()));
+		if(userByLogonId.get().getLogonId().equals(userByPhone.get().getLogonId())) {
+			if(userByLogonId.get().getUserPhone().equals(userByPhone.get().getUserPhone())) {
+				if(userByLogonId.get().getUserPass().equals(userByPhone.get().getUserPass())) {					
+					
+					final String updatePasswordMessage = "ABMSS : User id :" + userByLogonId.get().getLogonId() +" Password Reset to :"+ reset.getNewPassword();
+					Users user = userByLogonId.get();
+					user.setUserPass(reset.getNewPassword());
+//					userRepository.updatePasswordForUser(user);
+					userRepository.updatePasswordForTheUser(user.getLogonId(),user.getUserPass());
+					smsService.sendSmsWithCustomMessage(Arrays.asList(reset.getMobileNumber().toString().trim()), encoder.encode(updatePasswordMessage));
+					return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+				}
+			}
+				
+		}
+*/		
+		Users userByLogon = userRepository.findByLogonId(reset.getLogonId()).get();
+		if(reset.getMobileNumber().equals(userByLogon.getUserPhone().toString())) {
+			userByLogon.setUserPass(encoder.encode(reset.getNewPassword()));
+			userRepository.save(userByLogon);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}

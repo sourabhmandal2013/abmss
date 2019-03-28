@@ -1,13 +1,15 @@
 package org.psl.abmss.application.dto;
 
+import org.psl.abmss.application.entity.Cities;
+
 public class InstitutionDTO {
 
 	private Integer institutionId;
 	private String institutionName;
-	private String city;
+	private Cities cityState;
 	private String institutionAddress;
 	private String phone;
-	private Integer pointOfContact;
+	private String pointOfContact;
 
 	public Integer getInstitutionId() {
 		return institutionId;
@@ -21,11 +23,12 @@ public class InstitutionDTO {
 	public void setInstitutionName(String institutionName) {
 		this.institutionName = institutionName;
 	}
-	public String getCity() {
-		return city;
+	
+	public Cities getCityState() {
+		return cityState;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityState(Cities cityState) {
+		this.cityState = cityState;
 	}
 	public String getInstitutionAddress() {
 		return institutionAddress;
@@ -39,10 +42,10 @@ public class InstitutionDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Integer getPointOfContact() {
+	public String getPointOfContact() {
 		return pointOfContact;
 	}
-	public void setPointOfContact(Integer pointOfContact) {
+	public void setPointOfContact(String pointOfContact) {
 		this.pointOfContact = pointOfContact;
 	}
 

@@ -3,8 +3,8 @@ package org.psl.abmss.application.service.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class SmsServiceImpl implements SmsService{
 	
 	@Override
 	public String sendSms(List<String> mobileNo) {
-        URLConnection myURLConnection=null;
+		HttpURLConnection myURLConnection=null;
         URL myURL=null;
         BufferedReader reader=null;
         String encoded_message=URLEncoder.encode(message);
@@ -50,7 +50,8 @@ public class SmsServiceImpl implements SmsService{
         try
         {
             myURL = new URL(mainUrl);
-            myURLConnection = myURL.openConnection();
+            myURLConnection = (HttpURLConnection) myURL.openConnection();
+            myURLConnection.setRequestMethod("GET");
             myURLConnection.connect();
             reader= new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()));
             String response;
@@ -74,10 +75,17 @@ public class SmsServiceImpl implements SmsService{
 		
 		mobiles = mobiles.replaceAll("\\[", "");
 		mobiles = mobiles.replaceAll("\\]", "");
-        URLConnection myURLConnection=null;
+//        URLConnection myURLConnection=null;
         URL myURL=null;
+        
+//        URL obj = new URL(url);
+		HttpURLConnection myURLConnection = null;
+		
+		
+        
         BufferedReader reader=null;
         String encoded_message=URLEncoder.encode(message);
+        
         StringBuilder sbPostData= new StringBuilder(mainUrl);
         sbPostData.append("authkey="+authkey);
         sbPostData.append("&mobiles="+mobiles);
@@ -86,16 +94,17 @@ public class SmsServiceImpl implements SmsService{
         sbPostData.append("&sender="+senderId);
 
         mainUrl = sbPostData.toString();
+        String responseToApi = "";
         
         System.out.println(mainUrl);
         try
         {
             myURL = new URL(mainUrl);
-            myURLConnection = myURL.openConnection();
+            myURLConnection = (HttpURLConnection) myURL.openConnection();
+    		myURLConnection.setRequestMethod("GET");
             myURLConnection.connect();
             reader= new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()));
             String response;
-            String responseToApi = "";
             while ((response = reader.readLine()) != null)
             	responseToApi = responseToApi + response;
             reader.close();
@@ -105,7 +114,7 @@ public class SmsServiceImpl implements SmsService{
         {
                 e.printStackTrace();
         }
-        return "FAILED";
+        return responseToApi;
 	}
 
 }

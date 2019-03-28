@@ -1,7 +1,9 @@
 package org.psl.abmss.application.utility;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.psl.abmss.application.dto.InterventionDTO;
 import org.psl.abmss.application.entity.Doctor;
@@ -23,16 +25,21 @@ public Intervention dtoToIntervention(InterventionDTO dto) {
 
 		Intervention intervention = new Intervention();
 		
-		intervention.setAdmisionDt(dto.getAdmisionDt());
+		try {
+			intervention.setAdmisionDt(new SimpleDateFormat("dd-MM-yyyy").parse(dto.getAdmisionDt()));
+			intervention.setDischrgDt(new SimpleDateFormat("dd-MM-yyyy").parse(dto.getDischrgDt()));
+			intervention.setIntvDt(new SimpleDateFormat("dd-MM-yyyy").parse(dto.getIntvDt()));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		intervention.setAnasthMethod(dto.getAnasthMethod());
 		intervention.setAnasthNm(dto.getAnasthNm());
 		intervention.setComplicationInfo(dto.getComplicationInfo());
-		intervention.setDischrgDt(dto.getDischrgDt());
-		intervention.setEnteredBy(dto.getEnteredBy());
+		intervention.setEnteredBy(Integer.valueOf(dto.getEnteredBy()));
 		intervention.setIntrvId(dto.getIntrvId());
 		intervention.setIntrvType(dto.getIntrvType());
 		intervention.setIntvBookStatus(dto.getIntvBookStatus());
-		intervention.setIntvDt(dto.getIntvDt());
 		intervention.setOperationType(dto.getOperationType());
 		intervention.setPatientHt(dto.getPatientHt());
 		intervention.setPatientId(dto.getPatientId());
@@ -41,9 +48,9 @@ public Intervention dtoToIntervention(InterventionDTO dto) {
 		/*intervention.setDoctorId(dto.getDoctorId());
 		intervention.setDoctorNm(dto.getDoctorNm());*/
 		intervention.setTreatmentComments(dto.getTreatmentComments());
-		Set<Doctor> doctors = new HashSet<Doctor>();
+		List<Doctor> doctors = new ArrayList<Doctor>();
 		try {
-			doctorRepository.findAllById(dto.getDoctorId()).forEach(doctors :: add);;
+			doctors.add(doctorRepository.findById(dto.getDoctorId()).get());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

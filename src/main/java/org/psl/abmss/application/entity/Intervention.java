@@ -1,8 +1,8 @@
 package org.psl.abmss.application.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,14 +43,14 @@ public class Intervention {
 	private Date dischrgDt;
 
 	@Column(name = "PATIENT_HEIGHT")
-	private Integer patientHt;
+	private String patientHt;
 
 	@Column(name = "PATIENT_WEIGHT")
-	private Integer patientWght;
-
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "INTERVENTION_DOCTORS", joinColumns = @JoinColumn(name = "DOCTOR_ID"), inverseJoinColumns = @JoinColumn(name = "PATIENT_ID"))
-	Set<Doctor> doctors = new HashSet<Doctor>();
+	private String patientWght;
+	
+	@OneToMany
+	@JoinTable(name = "INTERVENTION_DOCTORS", joinColumns = @JoinColumn(name = "DOCTOR_ID"), inverseJoinColumns = @JoinColumn(name = "INTERVENTION_ID"))
+	List<Doctor> doctors = new ArrayList<Doctor>();
 
 	@Column(name = "ANAESTHETIST_NAME")
 	private String anasthNm;
@@ -129,19 +129,19 @@ public class Intervention {
 		this.dischrgDt = dischrgDt;
 	}
 
-	public Integer getPatientHt() {
+	public String getPatientHt() {
 		return patientHt;
 	}
 
-	public void setPatientHt(Integer patientHt) {
+	public void setPatientHt(String patientHt) {
 		this.patientHt = patientHt;
 	}
 
-	public Integer getPatientWght() {
+	public String getPatientWght() {
 		return patientWght;
 	}
 
-	public void setPatientWght(Integer patientWght) {
+	public void setPatientWght(String patientWght) {
 		this.patientWght = patientWght;
 	}
 	/*
@@ -210,11 +210,11 @@ public class Intervention {
 		this.srvcId = srvcId;
 	}
 
-	public Set<Doctor> getDoctors() {
+	public List<Doctor> getDoctors() {
 		return doctors;
 	}
 
-	public void setDoctors(Set<Doctor> doctors) {
+	public void setDoctors(List<Doctor> doctors) {
 		this.doctors = doctors;
 	}
 

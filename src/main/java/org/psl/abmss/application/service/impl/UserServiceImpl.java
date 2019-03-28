@@ -145,6 +145,17 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override
+	public Long getUserCount() {
+		try {
+			return userRepository.count();
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return null;
+	}
+
 	/*@Override
 	public Set<Role> getUserRoles(String email) {
 		try {

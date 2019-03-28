@@ -30,11 +30,8 @@ public class Patient {
 	@Column(name = "INSTITUTIONS_FILE_NO")
 	private String institutionsFileNo;
 
-	@Column(name = "CHILD_FIRST")
-	private String childFirstName;
-
-	@Column(name = "CHILD_LAST_NAME")
-	private String childLastName;
+	@Column(name = "CHILD_NAME")
+	private String childName;
 
 	@Column(name = "CHILD_DOB")
 	private String childDob;
@@ -42,12 +39,6 @@ public class Patient {
 	@OneToOne
 	@JoinTable(name = "ENTERED_BY_USER", joinColumns = @JoinColumn(name = "PATIENT_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID"))
 	private Users enteredBy;
-
-	@Column(name = "SERVICE_TYPE")
-	private Integer serviceType;
-
-	@Column(name = "FILE_NO")
-	private String fileNo;
 
 	@Column(name = "PATIENT_GUARDIAN_NAME")
 	private String patientGuardianName;
@@ -70,15 +61,10 @@ public class Patient {
 
 	@Column(name = "PATIENT_ADDRESS")
 	private String address;
-
-	@Column(name = "PATIENT_CITY")
-	private String city;
-
-	@Column(name = "PATIENT_PROVINCE")
-	private String province;
-
-	@Column(name = "PATIENT_ZIP")
-	private String zip;
+	
+	@OneToOne
+	@JoinTable(name = "PATIENT_CITY_STATE",joinColumns = @JoinColumn(name = "PATIENT_ID"), inverseJoinColumns = @JoinColumn(name = "CITY_ID"))
+	private Cities cityState;
 
 	@Column(name = "PATIENT_ALTERNATIVE_CONTACT_1")
 	private String alt_con_no_1;
@@ -94,20 +80,12 @@ public class Patient {
 		this.institutionsFileNo = institutionsFileNo;
 	}
 
-	public String getChildFirstName() {
-		return childFirstName;
+	public String getChildName() {
+		return childName;
 	}
 
-	public void setChildFirstName(String childFirstName) {
-		this.childFirstName = childFirstName;
-	}
-
-	public String getChildLastName() {
-		return childLastName;
-	}
-
-	public void setChildLastName(String childLastName) {
-		this.childLastName = childLastName;
+	public void setChildName(String childName) {
+		this.childName = childName;
 	}
 
 	public String getChildDob() {
@@ -116,10 +94,6 @@ public class Patient {
 
 	public void setChildDob(String childDob) {
 		this.childDob = childDob;
-	}
-
-	public int getServiceType() {
-		return serviceType;
 	}
 
 	public Users getUser() {
@@ -138,10 +112,6 @@ public class Patient {
 		this.enteredBy = enteredBy;
 	}
 
-	public void setServiceType(Integer serviceType) {
-		this.serviceType = serviceType;
-	}
-
 	public Integer getPatientId() {
 		return patientId;
 	}
@@ -150,13 +120,13 @@ public class Patient {
 		this.patientId = patientId;
 	}
 
-	public String getFileNo() {
-		return fileNo;
-	}
-
-	public void setFileNo(String fileNo) {
-		this.fileNo = fileNo;
-	}
+//	public String getFileNo() {
+//		return fileNo;
+//	}
+//
+//	public void setFileNo(String fileNo) {
+//		this.fileNo = fileNo;
+//	}
 
 	public String getPatientGuardianName() {
 		return patientGuardianName;
@@ -215,28 +185,12 @@ public class Patient {
 		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
+	public Cities getCityState() {
+		return cityState;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getZip() {
-		return zip;
-	}
-
-	public void setZip(String zip) {
-		this.zip = zip;
+	public void setCityState(Cities cityState) {
+		this.cityState = cityState;
 	}
 
 	public String getAlt_con_no_1() {
@@ -254,4 +208,16 @@ public class Patient {
 	public void setAlt_con_no_2(String alt_con_no_2) {
 		this.alt_con_no_2 = alt_con_no_2;
 	}
+
+	@Override
+	public String toString() {
+		return "Patient [patientId=" + patientId + ", user=" + user + ", institutionsFileNo=" + institutionsFileNo
+				+ ", childName=" + childName + ", childDob=" + childDob + ", enteredBy=" + enteredBy
+				+ ", patientGuardianName=" + patientGuardianName + ", gender=" + gender + ", age=" + age
+				+ ", institution=" + institution + ", primary_contact_no=" + primary_contact_no + ", email_id="
+				+ email_id + ", address=" + address + ", cityState=" + cityState + ", alt_con_no_1=" + alt_con_no_1
+				+ ", alt_con_no_2=" + alt_con_no_2 + "]";
+	}
+	
+	
 }

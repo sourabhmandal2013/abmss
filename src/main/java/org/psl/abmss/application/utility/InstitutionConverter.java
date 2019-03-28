@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class InstitutionConverter {
+	
 	public Institution dtoToInstitution(InstitutionDTO dto) {
 		
 		Institution institution = new Institution();
 		
-		institution.setCity(dto.getCity());
+		institution.setCityState(dto.getCityState());
 		institution.setInstitutionAddress(dto.getInstitutionAddress());
 		institution.setInstitutionId(dto.getInstitutionId());
 		institution.setInstitutionName(dto.getInstitutionName());

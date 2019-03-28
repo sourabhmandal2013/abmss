@@ -5,7 +5,7 @@ import java.util.List;
 import org.psl.abmss.application.entity.Transportation;
 
 public interface TransportationService {
-	public Transportation getTransportationByChildId(Integer childId);
+	public List<Transportation> getTransportationByChildId(Integer childId);
 
 	public Transportation getTransportationByTransportationId(Integer transportationId);
 

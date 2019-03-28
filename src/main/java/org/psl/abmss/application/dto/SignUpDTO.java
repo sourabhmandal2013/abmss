@@ -6,20 +6,20 @@ import javax.validation.constraints.Size;
 
 public class SignUpDTO {
 	@NotBlank
-    @Size(min = 4, max = 60)
+    /*@Size(min = 4, max = 60)*/
     private String userName;
 
     @NotBlank
-    @Size(max = 40)
+//    @Size(max = 40)
     @Email
     private String userEmail;
 
     @NotBlank
-    @Size(min = 6, max = 20)
+    /*@Size(min = 6, max = 20)*/
     private String userPass;
     
     @NotBlank
-    @Size(min = 10, max = 12)
+//    @Size(min = 10, max = 12)
     private String userPhone;
     
 	public String getUserName() {
@@ -53,4 +53,12 @@ public class SignUpDTO {
 	public void setUserPass(String userPass) {
 		this.userPass = userPass;
 	}
+
+	@Override
+	public String toString() {
+		return "SignUpDTO [userName=" + userName + ", userEmail=" + userEmail + ", userPass=" + userPass
+				+ ", userPhone=" + userPhone + "]";
+	}
+	
+	
 }

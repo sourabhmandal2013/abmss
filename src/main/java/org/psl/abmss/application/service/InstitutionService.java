@@ -9,6 +9,8 @@ public interface InstitutionService {
 
 	public List<Institution> getinstitutionByCity(String city);
 
+	public List<Institution> getinstitutionByState(String state);
+
 	public boolean addInstitution(Institution institution);
 	
 	public Institution updateInstitution(Institution institution);
@@ -16,4 +18,7 @@ public interface InstitutionService {
 	public boolean deleteInstitution(Integer institutionId);
 	
 	public List<Institution> getAllInstitution();
+
+	public Long getInstitutionCount();
+
 }

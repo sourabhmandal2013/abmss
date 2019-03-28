@@ -24,6 +24,13 @@ public class DoctorAPI {
 	@Autowired
 	private DoctorConverter converterDoctor;
 	
+	@RequestMapping(value = "/total/count", method = {RequestMethod.GET})
+    public Long countDoctors()
+    {
+		return doctorService.getDoctorCount();
+    }
+	
+	
 	@RequestMapping(value = "/{docId}", method = {RequestMethod.GET})
     public Doctor getDoctorById(@PathVariable(value = "docId") final Integer id)
     {

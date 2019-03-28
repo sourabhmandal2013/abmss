@@ -21,6 +21,8 @@ public interface DoctorService {
 	public boolean deleteDoctor(Integer doctorId);
 
 	public List<Patient> getPatientForDoctor(Integer doctorId);
+
+	public Long getDoctorCount();
 	
 	
 }
